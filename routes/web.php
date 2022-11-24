@@ -32,7 +32,14 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
-Route::get('/ovins/agneaulst', [OvinController::class, 'show_agneau'])->name('ovins.agneaulist');
+
+Route::middleware(['userrole'])->group(function () {
+    Route::get('/achat/achat', [AchatController::class, 'achat'])->name('achat.achat');
+    Route::get('/achat/addachat', [AchatController::class, 'addachat'])->name('achat.addachat');
+    Route::get('/achat/avoir', [AchatController::class, 'avoir'])->name('achat.avoir');
+    Route::get('/achat/search', [AchatController::class, 'search'])->name('achat.search');
+    Route::get('/achat/valider/', [AchatController::class, 'valider'])->name('achat.valider');
+    Route::get('/ovins/agneaulst', [OvinController::class, 'show_agneau'])->name('ovins.agneaulist');
 Route::put('/ovins/mort/{id}', [OvinController::class, 'adddie'])->name('ovins.adddie');
 Route::get('/die/', [OvinController::class, 'dieindex'])->name('die.index');
 Route::get('/agneauxmort/', [OvinController::class, 'dieindex2'])->name('die.index2');
@@ -41,11 +48,7 @@ Route::get('/bin/', [OvinController::class, 'showbin'])->name('ovins.bin');
 
 
 
-Route::get('/achat/achat', [AchatController::class, 'achat'])->name('achat.achat');
-Route::get('/achat/addachat', [AchatController::class, 'addachat'])->name('achat.addachat');
-Route::get('/achat/avoir', [AchatController::class, 'avoir'])->name('achat.avoir');
-Route::get('/achat/search', [AchatController::class, 'search'])->name('achat.search');
-Route::get('/achat/valider/', [AchatController::class, 'valider'])->name('achat.valider');
+
 
 
 
@@ -77,3 +80,8 @@ Route::get('/ovins/find/',[OvinController::class,'find'])->name('ovins.find');
 Route::get('/search', [OvinController::class, 'search'])->name('ovins.search');
 Route::get('/ovins/addnaissance/{id}', [OvinController::class, 'addnaissance'])->name('ovins.addnaissance');
 Route::get('/ovins/addavorter/{id}', [OvinController::class, 'addavorter'])->name('ovins.addavorter');
+
+
+
+
+});
