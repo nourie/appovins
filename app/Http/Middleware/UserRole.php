@@ -31,14 +31,16 @@ class UserRole
     
             }
             else {
-                return response('eeeee');
             }
 
 
         }
         
         else {
-           return abort(403);
+            
+            return response()->view('auth.login');
+
+            //return abort(403);
         }
        
     }
