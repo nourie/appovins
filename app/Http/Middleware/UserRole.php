@@ -21,7 +21,7 @@ class UserRole
         if (Auth::check()){
             if (auth()->user()->userrole==2)
             {
-                return response()->view('welcome');
+                return $next($request);
     
             }
             elseif(auth()->user()->userrole==1)

@@ -51,28 +51,14 @@
                         @endif
                     </li>
 
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-
-                            <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}" x-data>
-                                @csrf
-
-                                <x-jet-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                                    {{ __('الخروج') }}
-                                </x-jet-dropdown-link>
-                            </form>
-                        </li>
-                    </ul>
+             
 
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/ovins/public/ovins">الرئيسية</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('ovins.create') }}">إضافة</a>
-                        </li>
+
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -109,14 +95,9 @@
                                 <li><a class="dropdown-item" href="{{ route('die.index') }}"> الأغنام النافقة</a></li>
                                 <li><a class="dropdown-item" href="{{ route('die.index2') }}"> المواليد النافقة</a>
                                 </li>
-                                <li><a class="dropdown-item" href="{{ route('ovins.bin') }}"> محذوفة</a></li>
-
-
                             </ul>
                         </div>
-                        <li class="nav-item">
-                            <a class="nav-link" href="">ترقيم</a>
-                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('ovins.index') }}">قائمة المرقمة</a>
                         </li>

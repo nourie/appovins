@@ -26,8 +26,7 @@
           <td>{{$avorter->date_avorter}}</td>
           <td>{{$avorter->nombre}}</td>
           <td>{{$avorter->name}}</td>
-          <td><a class="btn btn-primary" href="{{route('ovins.edit',$avorter->id)}}" role="button" >تعديل</a>
-        </td>
+
       </tr>
           @endforeach
     </tbody>

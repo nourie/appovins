@@ -53,9 +53,7 @@
                     @endif
                     <td>{{ $ovin->die_cause }}</td>
 
-                    <td><a class="btn btn-primary" href="{{ route('ovins.edit', $ovin->id) }}" role="button">تعديل</a>
 
-                    </td>
                 </tr>
             @endforeach
         </tbody>

@@ -33,8 +33,7 @@
           <td>{{$naissance->nombre_female}}</td>
           <td>{{$naissance->name}}</td>
 
-          <td><a class="btn btn-primary" href="{{route('ovins.edit',$naissance->id)}}" role="button" >تعديل</a>
-        </td>
+          
         </tr>
           @endforeach
     </tbody>
