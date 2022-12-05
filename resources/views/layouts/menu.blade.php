@@ -51,7 +51,7 @@
                         @endif
                     </li>
 
-             
+
 
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
@@ -65,11 +65,17 @@
                                 شراء
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('achat.achat') }}">شراء</a></li>
-                                <li><a class="dropdown-item" href="{{ route('achat.index') }}">قائمة الشراء</a></li>
-                                <li><a class="dropdown-item" href="{{ route('achat.avoir') }}">إعادة</a></li>
-                                <li><a class="dropdown-item" href="{{ route('achat.indexavoir') }}">قائمة الإعادات</a>
-                                </li>
+                                @if (auth()->user()->userrole == 1)
+                                    <li><a class="dropdown-item" href="{{ route('achat.achat') }}">شراء</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('achat.index') }}">قائمة الشراء</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('achat.avoir') }}">إعادة</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('achat.indexavoir') }}">قائمة
+                                            الإعادات</a></li>
+                                @else
+                                    <li><a class="dropdown-item" href="{{ route('achat.index') }}">قائمة الشراء</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('achat.indexavoir') }}">قائمة
+                                            الإعادات</a></li>
+                                @endif
 
 
                             </ul>
@@ -80,7 +86,9 @@
                                 بيع
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('vente.index') }}">بيع</a></li>
+                                @if (auth()->user()->userrole == 1)
+                                    <li><a class="dropdown-item" href="{{ route('vente.index') }}">بيع</a></li>
+                                @endif
                                 <li><a class="dropdown-item" href="{{ route('vente.show', 1) }}">قائمة البيع</a></li>
                             </ul>
                         </div>

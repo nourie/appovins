@@ -1,7 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}  Ovins 
+           <div class="row"> {{ __('Dashboard') }} </div> 
+           <div class="row">  <a class="nav-link" href="{{ route('ovins.index') }}"> تتبع القطيع</a></div>
             
         </h2>
     </x-slot>
