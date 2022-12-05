@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-        <title><?php echo e(config('app.name', 'تتبع القطيع')); ?></title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
+    <title><?php echo e(config('app.name', 'تتبع القطيع')); ?></title>
 
-        <!-- Scripts -->
-        <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
-        <!-- Styles -->
-        <?php echo \Livewire\Livewire::styles(); ?>
+    <!-- Scripts -->
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
 
-    </head>
-    <body class="font-sans antialiased">
+    <!-- Styles -->
+    <?php echo \Livewire\Livewire::styles(); ?>
+
+</head>
+
+<body class="font-sans antialiased">
+    
         <?php if (isset($component)) { $__componentOriginalc254754b9d5db91d5165876f9d051922ca0066f4 = $component; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'jetstream::components.banner','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('jet-banner'); ?>
@@ -38,15 +41,15 @@
             <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('navigation-menu')->html();
-} elseif ($_instance->childHasBeenRendered('sGxJ1a0')) {
-    $componentId = $_instance->getRenderedChildComponentId('sGxJ1a0');
-    $componentTag = $_instance->getRenderedChildComponentTagName('sGxJ1a0');
+} elseif ($_instance->childHasBeenRendered('qbZGSOy')) {
+    $componentId = $_instance->getRenderedChildComponentId('qbZGSOy');
+    $componentTag = $_instance->getRenderedChildComponentTagName('qbZGSOy');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('sGxJ1a0');
+    $_instance->preserveRenderedChild('qbZGSOy');
 } else {
     $response = \Livewire\Livewire::mount('navigation-menu');
     $html = $response->html();
-    $_instance->logRenderedChild('sGxJ1a0', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('qbZGSOy', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -72,7 +75,9 @@ echo $html;
 
         <?php echo \Livewire\Livewire::scripts(); ?>
 
+    
+    
+</body>
 
-    </body>
 </html>
 <?php /**PATH K:\laraval\AppOvins\resources\views/layouts/app.blade.php ENDPATH**/ ?>

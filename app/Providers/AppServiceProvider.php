@@ -26,5 +26,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+    //     $this->app->bind('path.public', function() {
+    //         // return your own correct path.
+    //         return realpath(base_path('/../ovins/public/'));
+    //    });
     }
 }
