@@ -62,18 +62,7 @@ class OvinController extends Controller
         $ovin = Ovin::where('id', $id)->first();
         $angnaux=Ovin::where('id_mere',$id)->orderBy('date_naissance','desc')->Paginate(5);
         $avorternaissances = $this->historique($id)->sortByDesc('date');
-        if ($ovin->vendu==1)
-        {
-        $date_vente= DB::table('ovins')
-        ->join('liste_ventes', 'liste_ventes.id_ovin', '=', 'ovins.id')
-        ->join('ventes', 'ventes.id', '=', 'liste_ventes.id_vente')
-        ->Where('id_ovin',$id)
-        ->first()->date_vente;
-
-        }
-        else{
-            $date_vente=null;
-        }
+        $date_vente=null;
         $sex='ذكر';
         if ($ovin->sexe==0)
         {
@@ -85,10 +74,21 @@ class OvinController extends Controller
         if ($ovin->vendu == 1)
         {
           $status='بيع';
+          $date_vente= DB::table('ovins')
+          ->join('liste_ventes', 'liste_ventes.id_ovin', '=', 'ovins.id')
+          ->join('ventes', 'ventes.id', '=', 'liste_ventes.id_vente')
+          ->Where('id_ovin',$id)
+          ->first()->date_vente;
         }
         elseif($ovin->vendu == 2)
         {   
         $status='إعادة';
+
+        $date_vente= DB::table('ovins')
+        ->join('avoir_achats', 'avoir_achats.id_ovin', '=', 'ovins.id')
+        ->join('achats', 'achats.id', '=', 'avoir_achats.id_achat')
+        ->Where('id_ovin',$id)
+        ->first()->date_achat;
         }
         elseif($ovin->alive == 0)
         {

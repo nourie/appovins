@@ -16,7 +16,7 @@
                     readonly='readonly'>
             </div>
              <div class="col">
-                <label for="date_vente">تاريخ البيع : </label>
+                <label for="date_vente">تاريخ البيع/الإعادة : </label>
                 <input type="date" class="form-control" name="date_vente" value="{{$date_vente }}"
                     readonly='readonly'>
             </div>

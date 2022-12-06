@@ -41,51 +41,50 @@
                     @else
                         <td>أنثى</td>
                     @endif
-                    @if (auth()->user()->userrole == 2)
-                    <td><a class="btn btn-info" href="{{ route('ovins.details', $ovin->id) }}"  role="button">تفاصيل</a>
+                    <td><a class="btn btn-info" href="{{ route('ovins.details', $ovin->id) }}" role="button">تفاصيل</a>
+
+                        @if (auth()->user()->userrole == 2)
                         @if ($ovin->vendu == 1)
-                            <td>بيع </td>
-                        @elseif ($ovin->vendu == 2)
-                            <td>إعادة </td>
-                        @elseif ($ovin->alive == 0)
-                            <td>ميتة </td>
-                        @elseif($ovin->alive == 1)
-                            <td>حية </td>
-                        @endif
-                    @elseif(auth()->user()->userrole == 1)
-                        @if ($ovin->alive == 1 && $ovin->vendu == 0)
-                            <td><a class="btn btn-primary" href="{{ route('ovins.edit', $ovin->id) }}" role="button">تعديل</a>
-                            <td><a class="btn btn-info" href="{{ route('ovins.details', $ovin->id) }}"  role="button">تفاصيل</a>
+                    <td>بيع </td>
+                @elseif ($ovin->vendu == 2)
+                    <td>إعادة </td>
+                @elseif ($ovin->alive == 0)
+                    <td>ميتة </td>
+                @elseif($ovin->alive == 1)
+                    <td>حية </td>
+            @endif
+        @elseif(auth()->user()->userrole == 1)
+            @if ($ovin->alive == 1 && $ovin->vendu == 0)
+                <td><a class="btn btn-primary" href="{{ route('ovins.edit', $ovin->id) }}" role="button">تعديل</a>
 
-                                @inject('provider', 'App\Http\Controllers\OvinController')
+                    @inject('provider', 'App\Http\Controllers\OvinController')
 
-                                @if ($ovin->sexe == 0 && $provider::age($ovin->date_naissance, date('Y-m-d'))[0])
-                                    <a class="btn btn-success" href="{{ route('ovins.naissance', $ovin->id) }}"
-                                        role="button">ولادة</a>
-                                    <a class="btn btn-warning" href="{{ route('ovins.avorter', $ovin->id) }}"
-                                        role="button">إجهاض</a>
-                                @endif
-                            </td>
-
-                            <td>
-                                <form method="POST" action="{{ url('/ovins' . '/' . $ovin->id) }}">
-                                    {{ method_field('DELETE') }}
-                                    {{ csrf_field() }}
-                                    <button class="btn btn-danger" name="delete" type="submit">نفوق</button>
-                                </form>
-                            </td>
-                        @else
-                            @if ($ovin->vendu == 1)
-                                <td>بيع </td>
-                            @elseif ($ovin->vendu == 2)
-                                <td>إعادة </td>
-                            @else
-                                <td>ميتة </td>
-                            @endif
-                        @endif
+                    @if ($ovin->sexe == 0 && $provider::age($ovin->date_naissance, date('Y-m-d'))[0])
+                        <a class="btn btn-success" href="{{ route('ovins.naissance', $ovin->id) }}"
+                            role="button">ولادة</a>
+                        <a class="btn btn-warning" href="{{ route('ovins.avorter', $ovin->id) }}" role="button">إجهاض</a>
                     @endif
+                </td>
 
-                </tr>
+                <td>
+                    <form method="POST" action="{{ url('/ovins' . '/' . $ovin->id) }}">
+                        {{ method_field('DELETE') }}
+                        {{ csrf_field() }}
+                        <button class="btn btn-danger" name="delete" type="submit">نفوق</button>
+                    </form>
+                </td>
+            @else
+                @if ($ovin->vendu == 1)
+                    <td>بيع </td>
+                @elseif ($ovin->vendu == 2)
+                    <td>إعادة </td>
+                @else
+                    <td>ميتة </td>
+                @endif
+            @endif
+            @endif
+
+            </tr>
             @endforeach
         </tbody>
     </table>
