@@ -54,6 +54,8 @@
                     @elseif(auth()->user()->userrole == 1)
                         @if ($ovin->alive == 1 && $ovin->vendu == 0)
                             <td><a class="btn btn-primary" href="{{ route('ovins.edit', $ovin->id) }}" role="button">تعديل</a>
+                            <td><a class="btn btn-info" href="{{ route('ovins.details', $ovin->id) }}"  role="button">تفاصيل</a>
+
                                 @inject('provider', 'App\Http\Controllers\OvinController')
 
                                 @if ($ovin->sexe == 0 && $provider::age($ovin->date_naissance, date('Y-m-d'))[0])

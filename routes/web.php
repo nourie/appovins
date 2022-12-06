@@ -80,6 +80,8 @@ Route::get('/ovins/find/',[OvinController::class,'find'])->name('ovins.find');
 Route::get('/search', [OvinController::class, 'search'])->name('ovins.search');
 Route::get('/ovins/addnaissance/{id}', [OvinController::class, 'addnaissance'])->name('ovins.addnaissance');
 Route::get('/ovins/addavorter/{id}', [OvinController::class, 'addavorter'])->name('ovins.addavorter');
+Route::get('/ovins/details/{id}', [OvinController::class, 'details'])->name('ovins.details');
+
 
 
 

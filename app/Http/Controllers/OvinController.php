@@ -57,7 +57,48 @@ class OvinController extends Controller
         return view('die.index', compact('ovins'));
     }
 
+    public function details($id)
+    {
+        $ovin = Ovin::where('id', $id)->first();
+        $angnaux=Ovin::where('id_mere',$id)->orderBy('date_naissance','desc')->Paginate(5);
+        $avorternaissances = $this->historique($id)->sortByDesc('date');
+        if ($ovin->vendu==1)
+        {
+        $date_vente= DB::table('ovins')
+        ->join('liste_ventes', 'liste_ventes.id_ovin', '=', 'ovins.id')
+        ->join('ventes', 'ventes.id', '=', 'liste_ventes.id_vente')
+        ->Where('id_ovin',$id)
+        ->first()->date_vente;
 
+        }
+        $sex='ذكر';
+        if ($ovin->sexe==0)
+        {
+            $sex='أنثى';
+
+        }
+        $status='حية';
+        if ($ovin->alive==0)
+        {
+            $status='ميتة';
+
+        }
+        if( is_null($ovin->date_naissance) )
+        {
+           $age="شراء";
+
+        }
+        elseif (is_null($ovin->die_date))
+        {
+          $age=$this->age($ovin->date_naissance,date('Y-m-d'))[4];  
+        }
+        else 
+        {
+            $age=$this->age($ovin->date_naissance,$ovin->die_date)[4];  
+        }
+        
+        return view('ovins.details', compact('ovin','avorternaissances','angnaux','age','status','sex','date_vente'));
+    }
 
     /**
      * Show the form for creating a new resource.
