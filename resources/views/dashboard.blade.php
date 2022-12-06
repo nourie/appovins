@@ -2,6 +2,7 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
            <div class="row"> {{ __('Dashboard') }} </div> 
+           <br>
            <div class="row">  <a class="nav-link" href="{{ route('ovins.index') }}"> تتبع القطيع</a></div>
             
         </h2>

@@ -16,7 +16,5 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-storage/framework/cache/
-storage/framework/views/
-storage/framework/cache/data/2b/44/2b44ed34642126dcc1c4a188dbf1ec9920ffbeba
-storage/framework/cache/data/2b/44/2b44ed34642126dcc1c4a188dbf1ec9920ffbeba
+/storage/framework/cache
+/storage/framework/views
