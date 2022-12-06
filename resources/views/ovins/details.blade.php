@@ -62,12 +62,12 @@
     @include('naissance.historique')
 
 
-    <form action="{{ route('ovins.update', $ovin->id) }}" method="post">
+    <form action="{{ route('ovins.index') }}" method="post">
         @csrf
-        {{ method_field('PUT') }}
-        <!-- @   method('PUT');-->
+        {{ method_field('GET') }}
+        <!-- @   method('GET');-->
         <div class="row">
-            <button class="btn btn-primary" type="submit">تحديث</button>
+            <button class="btn btn-primary" type="submit">الرجوع</button>
         </div>
     </form>
 @endsection
