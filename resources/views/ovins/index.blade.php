@@ -42,6 +42,7 @@
                         <td>أنثى</td>
                     @endif
                     @if (auth()->user()->userrole == 2)
+                    <td><a class="btn btn-info" href="{{ route('ovins.details', $ovin->id) }}"  role="button">تفاصيل</a>
                         @if ($ovin->vendu == 1)
                             <td>بيع </td>
                         @elseif ($ovin->vendu == 2)

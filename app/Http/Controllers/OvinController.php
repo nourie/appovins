@@ -71,17 +71,31 @@ class OvinController extends Controller
         ->first()->date_vente;
 
         }
+        else{
+            $date_vente=null;
+        }
         $sex='ذكر';
         if ($ovin->sexe==0)
         {
             $sex='أنثى';
 
         }
-        $status='حية';
-        if ($ovin->alive==0)
-        {
-            $status='ميتة';
+      
 
+        if ($ovin->vendu == 1)
+        {
+          $status='بيع';
+        }
+        elseif($ovin->vendu == 2)
+        {   
+        $status='إعادة';
+        }
+        elseif($ovin->alive == 0)
+        {
+        $status='ميتة';
+        }
+        else{
+        $status='حية';
         }
         if( is_null($ovin->date_naissance) )
         {
