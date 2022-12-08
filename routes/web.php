@@ -6,6 +6,8 @@ use App\Http\Controllers\AchatController;
 use App\Http\Controllers\AvorterController;
 use App\Http\Controllers\NaissanceController;
 use App\Http\Controllers\VenteController;
+use App\Http\Controllers\ConfigController;
+
 use App\Models\Naissance;
 
 /*
@@ -45,6 +47,8 @@ Route::get('/die/', [OvinController::class, 'dieindex'])->name('die.index');
 Route::get('/agneauxmort/', [OvinController::class, 'dieindex2'])->name('die.index2');
 
 Route::get('/bin/', [OvinController::class, 'showbin'])->name('ovins.bin');
+Route::get('/clear/', [ConfigController::class, 'clear'])->name('config.clear');
+
 
 
 
