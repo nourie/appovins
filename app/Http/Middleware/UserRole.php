@@ -31,6 +31,7 @@ class UserRole
     
             }
             else {
+                return response('<center><h1> الحساب غير مفعل </h1></center> ');
             }
 
 

@@ -15,9 +15,9 @@
                 <input type="date" class="form-control" name="date_achat" value="{{ $ovin->date_achat }}"
                     readonly='readonly'>
             </div>
-             <div class="col">
+            <div class="col">
                 <label for="date_vente">تاريخ البيع/الإعادة : </label>
-                <input type="date" class="form-control" name="date_vente" value="{{$date_vente }}"
+                <input type="date" class="form-control" name="date_vente" value="{{ $date_vente }}"
                     readonly='readonly'>
             </div>
             <div class="col">
@@ -25,7 +25,7 @@
                 <input type="date" class="form-control" name="date_naissance" value="{{ $ovin->date_naissance }}"
                     readonly='readonly'>
             </div>
-             <div class="col">
+            <div class="col">
                 <label for="die_date">تاريخ النفوق : </label>
                 <input type="date" class="form-control" name="die_date" value="{{ $ovin->die_date }}"
                     readonly='readonly'>
@@ -58,8 +58,14 @@
 
 
     </div>
-    @include('avorter.historique')
-    @include('naissance.historique')
+    @if ($ovin->sexe == 0)
+        {
+
+        @include('avorter.historique')
+        @include('naissance.historique')
+        }
+    @endif
+
 
 
     <form action="{{ route('ovins.index') }}" method="post">

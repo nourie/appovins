@@ -4,7 +4,7 @@
     'name' => 'Laravel',
     'env' => 'local',
     'debug' => true,
-    'url' => 'http://www.solutions-transport-dz.com/ovins',
+    'url' => 'http://localhost',
     'asset_url' => NULL,
     'timezone' => 'UTC',
     'locale' => 'en',
@@ -88,6 +88,7 @@
       'Validator' => 'Illuminate\\Support\\Facades\\Validator',
       'View' => 'Illuminate\\Support\\Facades\\View',
       'Vite' => 'Illuminate\\Support\\Facades\\Vite',
+      'MobileDetect' => 'Riverskies\\Laravel\\MobileDetect\\Facades\\MobileDetect',
     ),
   ),
   'auth' => 
@@ -377,7 +378,7 @@
       array (
         'driver' => 'local',
         'root' => 'K:\\laraval\\AppOvins\\storage\\app/public',
-        'url' => 'http://www.solutions-transport-dz.com/ovins/storage',
+        'url' => 'http://localhost/storage',
         'visibility' => 'public',
         'throw' => false,
       ),
@@ -488,7 +489,7 @@
     'view_path' => 'K:\\laraval\\AppOvins\\resources\\views/livewire',
     'layout' => 'layouts.app',
     'asset_url' => NULL,
-    'app_url' => 'http://www.solutions-transport-dz.com/ovins',
+    'app_url' => 'http://localhost',
     'middleware_group' => 'web',
     'temporary_file_upload' => 
     array (
@@ -734,7 +735,7 @@
       2 => '127.0.0.1',
       3 => '127.0.0.1:8000',
       4 => '::1',
-      5 => 'www.solutions-transport-dz.com',
+      5 => 'localhost',
     ),
     'guard' => 
     array (
