@@ -404,7 +404,7 @@
     'two-factor-authentication' => 
     array (
       'confirm' => true,
-      'confirmPassword' => true,
+      'confirmPassword' => false,
     ),
   ),
   'fortify' => 
@@ -481,6 +481,45 @@
     'profile_photo_disk' => 'public',
     'auth_session' => 'Laravel\\Jetstream\\Http\\Middleware\\AuthenticateSession',
     'guard' => 'sanctum',
+  ),
+  'livewire' => 
+  array (
+    'class_namespace' => 'App\\Http\\Livewire',
+    'view_path' => 'K:\\laraval\\AppOvins\\resources\\views/livewire',
+    'layout' => 'layouts.app',
+    'asset_url' => NULL,
+    'app_url' => 'http://www.solutions-transport-dz.com/ovins',
+    'middleware_group' => 'web',
+    'temporary_file_upload' => 
+    array (
+      'disk' => NULL,
+      'rules' => NULL,
+      'directory' => NULL,
+      'middleware' => NULL,
+      'preview_mimes' => 
+      array (
+        0 => 'png',
+        1 => 'gif',
+        2 => 'bmp',
+        3 => 'svg',
+        4 => 'wav',
+        5 => 'mp4',
+        6 => 'mov',
+        7 => 'avi',
+        8 => 'wmv',
+        9 => 'mp3',
+        10 => 'm4a',
+        11 => 'jpg',
+        12 => 'jpeg',
+        13 => 'mpga',
+        14 => 'webp',
+        15 => 'wma',
+      ),
+      'max_upload_time' => 5,
+    ),
+    'manifest_path' => NULL,
+    'back_button_cache' => false,
+    'render_on_redirect' => false,
   ),
   'logging' => 
   array (
@@ -757,45 +796,6 @@
       0 => 'K:\\laraval\\AppOvins\\resources\\views',
     ),
     'compiled' => 'K:\\laraval\\AppOvins\\storage\\framework\\views',
-  ),
-  'livewire' => 
-  array (
-    'class_namespace' => 'App\\Http\\Livewire',
-    'view_path' => 'K:\\laraval\\AppOvins\\resources\\views/livewire',
-    'layout' => 'layouts.app',
-    'asset_url' => NULL,
-    'app_url' => NULL,
-    'middleware_group' => 'web',
-    'temporary_file_upload' => 
-    array (
-      'disk' => NULL,
-      'rules' => NULL,
-      'directory' => NULL,
-      'middleware' => NULL,
-      'preview_mimes' => 
-      array (
-        0 => 'png',
-        1 => 'gif',
-        2 => 'bmp',
-        3 => 'svg',
-        4 => 'wav',
-        5 => 'mp4',
-        6 => 'mov',
-        7 => 'avi',
-        8 => 'wmv',
-        9 => 'mp3',
-        10 => 'm4a',
-        11 => 'jpg',
-        12 => 'jpeg',
-        13 => 'mpga',
-        14 => 'webp',
-        15 => 'wma',
-      ),
-      'max_upload_time' => 5,
-    ),
-    'manifest_path' => NULL,
-    'back_button_cache' => false,
-    'render_on_redirect' => false,
   ),
   'flare' => 
   array (

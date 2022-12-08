@@ -77,6 +77,17 @@
       0 => 'Termwind\\Laravel\\TermwindServiceProvider',
     ),
   ),
+  'riverskies/laravel-mobile-detect' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Riverskies\\Laravel\\MobileDetect\\MobileDetectServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'MobileDetect' => 'Riverskies\\Laravel\\MobileDetect\\Facades\\MobileDetect',
+    ),
+  ),
   'spatie/laravel-ignition' => 
   array (
     'providers' => 
