@@ -35,6 +35,7 @@ Route::middleware([
     })->name('dashboard');
 });
 
+
 Route::middleware(['userrole'])->group(function () {
     Route::get('/achat/achat', [AchatController::class, 'achat'])->name('achat.achat');
     Route::get('/achat/addachat', [AchatController::class, 'addachat'])->name('achat.addachat');
