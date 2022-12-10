@@ -372,8 +372,8 @@ class OvinController extends Controller
     {
         // $mytime = Carbon\Carbon::now();
         // echo $mytime->toDateTimeString();
-        $ovin = Ovin::where('id', $request->id)->first();
-        return view('ovins.mort', compact('ovin'));
+        $ovins = Ovin::where('id', $request->id)->first();
+        return view('ovins.mort', compact('ovins'));
     }
     public function adddie(Request $request, $id)
     {

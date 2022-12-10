@@ -44,6 +44,8 @@ Route::middleware(['userrole'])->group(function () {
     Route::get('/achat/valider/', [AchatController::class, 'valider'])->name('achat.valider');
     Route::get('/ovins/agneaulst', [OvinController::class, 'show_agneau'])->name('ovins.agneaulist');
 Route::put('/ovins/mort/{id}', [OvinController::class, 'adddie'])->name('ovins.adddie');
+Route::get('/ovins/die/{id}', [OvinController::class, 'die'])->name('ovins.die');
+
 Route::get('/die/', [OvinController::class, 'dieindex'])->name('die.index');
 Route::get('/agneauxmort/', [OvinController::class, 'dieindex2'])->name('die.index2');
 

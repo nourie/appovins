@@ -60,6 +60,7 @@
         @elseif(auth()->user()->userrole == 1)
             @if ($ovin->alive == 1 && $ovin->vendu == 0)
                 <td><a class="btn btn-primary" href="{{ route('ovins.edit', $ovin->id) }}" role="button">تعديل</a>
+                
 
                     @inject('provider', 'App\Http\Controllers\OvinController')
 
@@ -67,16 +68,14 @@
                         <a class="btn btn-success" href="{{ route('ovins.naissance', $ovin->id) }}"
                             role="button">ولادة</a>
                         <a class="btn btn-warning" href="{{ route('ovins.avorter', $ovin->id) }}" role="button">إجهاض</a>
+
                     @endif
+                <a class="btn btn-danger" href="{{ route('ovins.die', $ovin->id) }}" role="button">نفوق</a>
+
+                   
                 </td>
 
-                <td>
-                    <form method="POST" action="{{ url('/ovins' . '/' . $ovin->id) }}">
-                        {{ method_field('DELETE') }}
-                        {{ csrf_field() }}
-                        <button class="btn btn-danger" name="delete" type="submit">نفوق</button>
-                    </form>
-                </td>
+         
             @else
                 @if ($ovin->vendu == 1)
                     <td>بيع </td>
