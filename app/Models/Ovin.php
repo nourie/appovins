@@ -15,4 +15,8 @@ class Ovin extends Model
  public function scopeRecherche ($query,$num){
     return   $query ->where('num', $num)->first();
  }
+ public function lot()
+ {
+   return $this->hasOne(Lot::class);
+ }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Vente;
 use App\Models\Ovin;
+use App\Models\Lot;
+use App\Models\Ovin_lot;
 use App\Models\Temp_vente;
 use App\Models\ListeVente;
 use Illuminate\Http\Request;
@@ -200,6 +202,10 @@ class VenteController extends Controller
             $ventes->updatable = 0;
             $ventes->save();
 
+
+
+
+            
             foreach ($temps as $temp) {
                 $listeVentes = new ListeVente();
                 $listeVentes->id_vente = $ventes->id;
@@ -209,6 +215,22 @@ class VenteController extends Controller
                 $ovins = Ovin::findorfail($temp->id_ovin);
                 $ovins->vendu = 1;
                 $ovins->save();
+               // ****** to reprograme as event in the future
+               $Ovin_lot = Ovin_lot::where('id_ovin', '=', $temp->id_ovin)->get();
+               if ($Ovin_lot->count()>0)
+               {
+                   $Ovin_lot = Ovin_lot::where('id_ovin', '=', $temp->id_ovin)->first();
+       
+                   $lot = Lot::where('id', $Ovin_lot->id_lot)->first();
+                   
+                   
+                   $Ovin_lot->delete();
+                   $nbr=Ovin_lot::where('id_lot','=',$lot->id)->count();
+                   $lot->nbr_ovins = $nbr;
+                   $lot->save();
+                   
+               }
+                //*****
             }
 
             Temp_vente::truncate();

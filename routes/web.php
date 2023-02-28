@@ -7,6 +7,8 @@ use App\Http\Controllers\AvorterController;
 use App\Http\Controllers\NaissanceController;
 use App\Http\Controllers\VenteController;
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\LotController;
+
 
 use App\Models\Naissance;
 
@@ -75,6 +77,17 @@ Route::get('vente/search', [VenteController::class, 'search'])->name('vente.sear
 Route::get('vente/valider', [VenteController::class, 'valider'])->name('vente.valider');
 
 Route::resource('vente', VenteController::class,['names'=>['index'=>'vente.index','show'=>'vente.show']]);
+
+
+Route::get('/lot/inlot/{id}', [LotController::class, 'inlot'])->name('lot.inlot');
+Route::get('/lot/ajouter/', [LotController::class, 'ajouter'])->name('lot.ajouter');
+Route::get('/lot/insert/', [LotController::class, 'insert'])->name('lot.insert');
+Route::get('/lot/index/{err}', [LotController::class, 'index'])->name('lot.index');
+Route::get('/lot/close/{id}', [LotController::class, 'close'])->name('lot.close');
+Route::get('/lot/closelot/', [LotController::class, 'closelot'])->name('lot.closelot');
+
+
+
 
 
 

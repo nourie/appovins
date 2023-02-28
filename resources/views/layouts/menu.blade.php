@@ -24,7 +24,7 @@
 
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -77,6 +77,22 @@
                                 <li><a class="dropdown-item" href="{{ route('vente.index') }}">بيع</a></li>
                             @endif
                             <li><a class="dropdown-item" href="{{ route('vente.show', 1) }}">قائمة البيع</a></li>
+                        </center>
+                    </ul>
+
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        المجموعات
+                    </button>
+
+                    <ul class="dropdown-menu">
+                        <center>
+                            @if (auth()->user()->userrole == 1)
+                                <li><a class="dropdown-item" href="{{ route('lot.index',1) }}">المجموعات</a></li>
+                            @endif
+                            <li><a class="dropdown-item" href="{{ route('lot.ajouter') }}">إضافة مجموعة</a></li>
                         </center>
                     </ul>
 

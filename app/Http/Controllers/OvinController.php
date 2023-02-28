@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ovin;
+use App\Models\Lot;
+use App\Models\Ovin_lot;
+
 use App\Models\Naissance;
 use App\Http\Controllers\NaissanceController;
 use Illuminate\Support\Facades\DB;
@@ -16,6 +19,9 @@ use DateTime;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use SebastianBergmann\Timer\Duration;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+
 
 class OvinController extends Controller
 {
@@ -205,29 +211,73 @@ class OvinController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        $ovin = Ovin::findorFail($id);
-        $old_num=$ovin->num;
-        $ovin->num = $request->num;
-        $ovin->date_achat = $request->date_achat;
-        $ovin->poid = $request->poid;
-        $sex = true;
-        if (strcmp($request->sexe, 'Female') === 0) {
-            $sex = false;
+        $unique = Ovin::where('num', $request->num)->get();// a faire une focntion pour vérifier les numéros pour etres unique
+        $valide=false;
+       
+        if ($unique->count()>1)
+        {
+            
+        $request->validate([
+            'num'=> 'required|unique:ovins'
+          ]
+          );
+            
         }
-        $ovin->sexe = $sex;
-        $ovin->save();
-        $modification= new Modification();
-        $modification->cause=$request->cause;
-        $modification->id_ovin=$id;
-        $modification->old_num=$old_num;
-        $modification->new_num=$request->num;
-        $modification->date_mod=date('Y-m-d');
-        $modification->save();
+        elseif (($unique->count()== 1) && ($unique[0]->id==$id)  )
+        {
+            $valide=true;  
+           
+        }
+        elseif ( ($unique->count()== 1) && ($unique[0]->id!=$id)) {
+           $valide=false;
+         
+        }
+        elseif (($unique->count()== 0))
+         {
+            $valide=true;
+        }
+        else 
+        { 
+            $valide=false;
+        }
+        if ($valide==true)
+        {
+
+            $ovin = Ovin::findorFail($id);
+            $old_num=$ovin->num;
+            $ovin->num = $request->num;
+            $ovin->date_achat = $request->date_achat;
+            $ovin->poid = $request->poid;
+            $sex = true;
+            if ($request->taged==1)
+            {
+                $ovin->taged = true;
+            }
+            
+    
+            if (strcmp($request->sexe, 'Female') === 0) {
+                $sex = false;
+            }
+            $ovin->sexe = $sex;
+            $ovin->save();
+            $modification= new Modification();
+            $modification->cause=$request->cause;
+            $modification->id_ovin=$id;
+            $modification->old_num=$old_num;
+            $modification->new_num=$request->num;
+            $modification->date_mod=date('Y-m-d');
+            $modification->save();
+    
+    
+    
+            return redirect()->route('ovins.index');
+        }
+        else {
+            return 'الرقم موجود';
+        }
 
 
-
-        return redirect()->route('ovins.index');
+       
     }
     public function restore($id)
     {
@@ -319,7 +369,31 @@ class OvinController extends Controller
         } else {
             $lastid = $ovin->num;
         }
+        $lot = Lot::where('active', true)->first();
 
+        if (is_null($lot))
+        {
+            $error=' لا توجد مجموعة مفعلة ' ;
+            return redirect()->route('lot.index', $error);
+
+        }
+            
+             
+        else
+        {  
+              
+            if ( $request->nombre_en_vie ==0)
+            {
+                $unique =0;   
+            }
+            else  
+           {
+            $unique_num_in_lot=Ovin_lot::where('id_lot','=',$lot->id)
+            ->where('num_in_lot','=',$request->num_in_lot)->get();
+            $unique=$unique_num_in_lot->count();
+            }
+
+     if ( ($unique==0)) {
 
         $naissance = new Naissance();
         $naissance->id_mere = $id;
@@ -352,7 +426,29 @@ class OvinController extends Controller
             $ovin->id_source = 2; //naissance
             $ovin->id_achat = 1;
             $ovin->save();
+          
+                    $ovin_lots =new Ovin_lot();
+                    $id_ovin=Ovin::where('id_mere', $request->id)->latest('id')->first();
+                    $ovin_lots->id_ovin=$id_ovin->id;
+                    $ovin_lots->num_in_lot=$request->num_in_lot;
+                    $ovin_lots->id_lot=$lot->id;
+                    $ovin_lots->save();
+
+
+                }
+            }
+            else 
+                { 
+                   // dd( $unique_num_in_lot);
+                    return ('الرقم موجود في المجموعة');
+                }
+            
+           
+        
         }
+        $nbr=Ovin_lot::where('id_lot','=',$lot->id)->count();
+        $lot->nbr_ovins = $nbr;
+        $lot->save();
 
         return redirect('naissance/');
     }
@@ -385,6 +481,21 @@ class OvinController extends Controller
         $ovin->die_cause = $request->die_cause;
         $ovin->die_date = $request->die_date;
         $ovin->save();
+        $Ovin_lot = Ovin_lot::where('id_ovin', '=', $id)->get();
+        if ($Ovin_lot->count()>0)
+        {
+            $Ovin_lot = Ovin_lot::where('id_ovin', '=', $id)->first();
+
+            $lot = Lot::where('id', $Ovin_lot->id_lot)->first();
+            
+            
+            $Ovin_lot->delete();
+            $nbr=Ovin_lot::where('id_lot','=',$lot->id)->count();
+            $lot->nbr_ovins = $nbr;
+            $lot->save();
+            
+        }
+     
         return redirect()->route('ovins.index');
     }
     public static function getNiceDuration($durationInSeconds)

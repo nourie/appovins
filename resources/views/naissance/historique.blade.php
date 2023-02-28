@@ -15,7 +15,10 @@
         @foreach ($angnaux as $angnau)
             <tr>
                 <th scope="row">{{ (string) $angnau->id }}</th>
-                <td>{{ $angnau->num }}</td>
+                <td><a href={{ route('ovins.details', $angnau->id) }} > {{ $angnau->num }} </a></td>
+
+               
+
 
                 <td>{{ $angnau->date_naissance }}</td>
                 <td>

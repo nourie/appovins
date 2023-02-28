@@ -95,6 +95,11 @@
                     <input type="number" id='nombre_male'class="form-control" name="nombre_male" value="1" onchange
                     min=0  step="1" onpropertychange onkeyuponpaste oninput="valider()">
                 </div>
+                  <div class="col">
+                    <label for="num_in_lot"> الرقم في المجموعة : </label>
+                    <input type="number" id='num_in_lot'class="form-control" name="num_in_lot" value="0" onchange
+                    min=0  step="1">
+                </div>
 
                 <div class="col">
                     <label for="nombre_female">الإناث الأحياء : </label>

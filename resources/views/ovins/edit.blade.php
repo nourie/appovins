@@ -1,8 +1,17 @@
 @extends('layouts.menu')
 @section('title')
-    <title>قائمة الميتة </title>
+    التعديل 
 @endsection
 @section('contenu')
+ @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
     <div class="container">
         <form action="{{ route('ovins.update', $ovin->id) }}" method="post">
@@ -28,6 +37,21 @@
                     <label for="cause">سبب التعديل : </label>
                     <input type="text" class="form-control" name="cause" placeholder="السبب">
                 </div>
+                <div class="col">
+                    @if ($ovin->taged == 1)
+                        <input type="radio" id="taged" name="taged" value="1" checked>
+                        <label for="taged">ترقيم</label>
+                        <input type="radio" id="other" name="taged" value="0">
+                        <label for="other">آخر</label>
+                    @else
+                        <input type="radio" id="taged" name="taged" value="1">
+                        <label for="taged">ترقيم</label>
+                        <input type="radio" id="other" name="taged" value="0" checked>
+                        <label for="other">آخر</label>
+                    @endif
+
+                </div>
+
                 <div class="row">
                     <label for="poid">الوزن : </label>
                     <input type="number" class="form-control" name="poid"
