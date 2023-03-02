@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ovin;
 use App\Models\Lot;
-use App\Models\Ovin_lot;
+use App\Models\Ovin_Lot;
 
 use App\Models\Naissance;
 use App\Http\Controllers\NaissanceController;

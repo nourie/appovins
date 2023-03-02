@@ -119,7 +119,7 @@ class LotController extends Controller
        ->where ('lots.id','=',$id)
         ->first();
       
-       $nbr=Ovin_lot::where('id_lot','=',$id)->count();
+       $nbr=Ovin_Lot::where('id_lot','=',$id)->count();
        return view('lot.closed', compact('lot','nbr'));
     }
      public function inlot($id)
