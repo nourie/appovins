@@ -361,14 +361,15 @@ class OvinController extends Controller
     {
         $ovin1 = Ovin::where('id', $request->id)->first();
 
-        $ovin = Ovin::where('id_mere', $request->id)->latest('id')->first();
-        //  return $ovin;
+        $ovin = Ovin::where('id_mere', $request->id)->get();
+        $lastid=$ovin1->num *10000+$ovin->count();
+        // return $lastid;
 
-        if (is_null($ovin)) {
-            $lastid = $ovin1->num * 10000;
-        } else {
-            $lastid = $ovin->num;
-        }
+        // if (is_null($ovin)) {
+        //     $lastid = $ovin1->num * 10000;
+        // } else {
+        //     $lastid = $ovin->num;
+        // }
         $lot = Lot::where('active', true)->first();
 
         if (is_null($lot))
