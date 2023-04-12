@@ -38,11 +38,12 @@
                     @endif
                 </td>
                 <td>
-                    @if ($ovin->alive == 0)
+                    @if ($angnau->alive == 0)
                         @inject('provider', 'App\Http\Controllers\OvinController')
                         {{ $provider::age($angnau->date_naissance, $angnau->die_date)[4] }}
                     @else
                         @inject('provider', 'App\Http\Controllers\OvinController')
+                       
                         {{ $provider::age($angnau->date_naissance, date('Y-m-d'))[4] }}
                     @endif
                 </td>
