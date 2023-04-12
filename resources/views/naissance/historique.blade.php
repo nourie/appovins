@@ -17,9 +17,9 @@
         @foreach ($angnaux as $angnau)
             <tr>
                 <th scope="row">{{ (string) $angnau->id_ovin }}</th>
-                <td><a href={{ route('ovins.details', $angnau->id_ovin) }} > {{ $angnau->num }} </a></td>
+                <td><a href={{ route('ovins.details', $angnau->id_ovin) }}> {{ $angnau->num }} </a></td>
 
-               
+
 
 
                 <td>{{ $angnau->date_naissance }}</td>
@@ -45,16 +45,16 @@
                         {{ $provider::age($angnau->date_naissance, $angnau->die_date)[4] }}
                     @else
                         @inject('provider', 'App\Http\Controllers\OvinController')
-                       
+
                         {{ $provider::age($angnau->date_naissance, date('Y-m-d'))[4] }}
                     @endif
                 </td>
-                    <td>
-                   {{$angnau->name}}
+                <td>
+                    <a href="{{ route('lot.close', $angnau->id_lot) }}"> {{ $angnau->name }}</a>
                 </td>
                 <td>
-                     <a href="{{route('lot.inlot', $angnau->id_lot)}}">  {{$angnau->num_in_lot}}  </a>
-                  
+                    <a href="{{ route('lot.inlot', $angnau->id_lot) }}"> {{ $angnau->num_in_lot }} </a>
+
                 </td>
 
             </tr>
