@@ -66,7 +66,15 @@ class OvinController extends Controller
     public function details($id)
     {
         $ovin = Ovin::where('id', $id)->first();
-        $angnaux=Ovin::where('id_mere',$id)->orderBy('date_naissance','desc')->Paginate(5);
+       
+        //$angnaux=Ovin::where('id_mere',$id)->orderBy('date_naissance','desc')->Paginate(5);
+       $angnaux=Ovin::join ('ovin__lots','id_ovin','ovins.id')
+       ->join('lots','lots.id','ovin__lots.id_lot')
+       ->join('color_lots','color_lots.id','lots.color_id')
+       ->where('id_mere',$id)
+       ->orderBy('date_naissance','desc')
+       ->Paginate(5);
+      // dd($angnaux);        
         $avorternaissances = $this->historique($id)->sortByDesc('date');
         $date_vente=null;
         $sex='ذكر';
