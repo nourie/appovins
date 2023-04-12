@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('ovin__lots', function (Blueprint $table) {
             $table->id();
-            $table->foreignid('id_ovin')->references('id')->on('ovins')->constrained;
+            $table->foreignid('id_ovin')->references('id')->on('ovins')->constrained->unique;
             $table->foreignid('id_lot')->references('id')->on('lots')->constrained;
             $table->integer('num_in_lot')->length(3);
             $table->softDeletes();
