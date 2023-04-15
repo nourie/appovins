@@ -85,6 +85,8 @@ Route::get('/lot/insert/', [LotController::class, 'insert'])->name('lot.insert')
 Route::get('/lot/index/{err}', [LotController::class, 'index'])->name('lot.index');
 Route::get('/lot/close/{id}', [LotController::class, 'close'])->name('lot.close');
 Route::get('/lot/closelot/', [LotController::class, 'closelot'])->name('lot.closelot');
+Route::get('/lot/old/', [LotController::class, 'old'])->name('lot.old');
+
 
 
 

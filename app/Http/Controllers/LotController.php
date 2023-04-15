@@ -71,6 +71,42 @@ class LotController extends Controller
 
               }
 
+
+    public function old ()
+    {
+      $debut=date('2022-01-01');
+      $fin=date('2022-10-31');
+      $ovins=  DB::table('ovins')
+      ->whereBetween ('ovins.date_naissance',[$debut,$fin] )
+      ->get(['ovins.id','ovins.num','die_date']);
+      echo "le nombre :";
+      echo $ovins->count();
+     
+    
+    
+     echo "\r\n";
+     $nbr=0;
+     foreach ($ovins as $ovin)
+     {
+     $nbr++;
+     $ovin_lots =new Ovin_lot();
+     $ovin_lots->id_ovin=$ovin->id;
+     $ovin_lots->num_in_lot=0;
+     $ovin_lots->id_lot=1;
+     $ovin_lots->deleted_at=$ovin->die_date;
+     $ovin_lots->save();
+     echo $ovin->num;
+     echo "\r\n";
+
+     }
+     echo $nbr;
+     $lot = Lot::where('id','1')->first();
+     $nbr=Ovin_lot::where('id_lot','=',$lot->id)->count();
+     $lot->nbr_ovins = $nbr;
+     $lot->save();
+
+     return $ovins;
+    }          
     public function index($err)
     { 
 
@@ -79,6 +115,7 @@ class LotController extends Controller
         ->join ('lots','lots.color_id','=','color_lots.id')
         // ->union ('SELECT COUNT(*) FROM ovin__lots WHERE ovin__lots.id_lot =lots.id ) as nbre'
         // ->union('ovin__lots','id_lot','=','lots.id')
+        ->orderBy('lots.id')
          ->get();
          
        //dd($lots);

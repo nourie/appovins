@@ -90,9 +90,11 @@
                     <ul class="dropdown-menu">
                         <center>
                             @if (auth()->user()->userrole == 1)
-                                <li><a class="dropdown-item" href="{{ route('lot.index',1) }}">المجموعات</a></li>
+                                <li><a class="dropdown-item" href="{{ route('lot.index', 1) }}">المجموعات</a></li>
+                                <li><a class="dropdown-item" href="{{ route('lot.ajouter') }}">إضافة مجموعة</a></li>
+                            @else
+                                <li><a class="dropdown-item" href="{{ route('lot.index', 1) }}">المجموعات</a></li>
                             @endif
-                            <li><a class="dropdown-item" href="{{ route('lot.ajouter') }}">إضافة مجموعة</a></li>
                         </center>
                     </ul>
 
