@@ -22,12 +22,14 @@ return new class extends Migration
             $table->boolean('sexe');
             $table->integer('poid')->nullable();
             $table->boolean('alive');
-            $table->boolean('vendu');
+            $table->boolean('vendu');  // 0 non . 1 vendu vivante. 3 vendu viande egorge . 
+            $table->boolean('invetaire')->nullable();  // 0 non trouver  . 1 trouver. 
+            $table->date('date_inventaire')->nullable();
             $table->bigInteger('id_mere')->nullable();
             $table->foreignid('id_achat')->references('id')->on('achats')->nullable()->constrained;
             $table->foreignid('id_source')->references('id')->on('sources')->nullable()->constrained;
             $table->date('die_date')->nullable();
-            $table->boolean('die_status')->nullable();
+            $table->boolean('die_status')->nullable();// 0 mort 1 egorgé null alive 
             $table->string('die_cause', 80)->nullable();
             $table->softDeletes();
             $table->timestamps();

@@ -1,0 +1,2 @@
+UPDATE `lots` SET nbr_init =(SELECT COUNT(*) AS nbr FROM ovin__lots 
+WHERE  ovin__lots.id_lot =lots.id)

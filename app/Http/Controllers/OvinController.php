@@ -21,7 +21,7 @@ use Illuminate\Support\Collection;
 use SebastianBergmann\Timer\Duration;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
+use function PHPUnit\Framework\isNull;
 
 class OvinController extends Controller
 {
@@ -46,7 +46,7 @@ class OvinController extends Controller
      */
     public function index()
     {
-        $ovins = Ovin::where('taged', true)->where('alive', true)->where('vendu', false)->Paginate(10);
+        $ovins = Ovin::where('taged', true)->where('alive', true)->where('vendu', '0')->Paginate(10);
         return view('ovins.index', compact('ovins'));
     }
 
@@ -67,6 +67,17 @@ class OvinController extends Controller
     {
         $ovin = Ovin::where('id', $id)->first();
        
+        $numere = Ovin::where('id',$ovin->id_mere)->first();
+        if (is_null($numere))
+        {
+           // dd($numere);
+           $numere='شراء';
+        }
+        else 
+        {
+         $numere =$numere->num;
+        }
+   
         //$angnaux=Ovin::where('id_mere',$id)->orderBy('date_naissance','desc')->Paginate(5);
        $angnaux=Ovin::join ('ovin__lots','id_ovin','ovins.id')
        ->join('lots','lots.id','ovin__lots.id_lot')
@@ -74,6 +85,24 @@ class OvinController extends Controller
        ->where('id_mere',$id)
        ->orderBy('date_naissance','desc')
        ->Paginate(5);
+      
+     
+     $anlot=Ovin::join ('ovin__lots','id_ovin','ovins.id')
+     ->join('lots','lots.id','ovin__lots.id_lot')
+     ->join('color_lots','color_lots.id','lots.color_id')
+     ->where('id_ovin',$id)
+     ->orderBy('date_naissance','desc')
+     ->get();
+     if ($anlot->count()==0)
+     {
+    
+        $num_in_lot="لا يوجد";
+     }
+     else 
+     {
+        $num_in_lot=$anlot[0]->num_in_lot;
+     }
+       
       // dd($angnaux);        
         $avorternaissances = $this->historique($id)->sortByDesc('date');
         $date_vente=null;
@@ -85,7 +114,7 @@ class OvinController extends Controller
         }
       
 
-        if ($ovin->vendu == 1)
+        if ($ovin->vendu != 0)
         {
           $status='بيع';
           $date_vente= DB::table('ovins')
@@ -114,18 +143,20 @@ class OvinController extends Controller
         if( is_null($ovin->date_naissance) )
         {
            $age="شراء";
+          
 
         }
         elseif (is_null($ovin->die_date))
         {
           $age=$this->age($ovin->date_naissance,date('Y-m-d'))[4];  
+        
         }
         else 
         {
             $age=$this->age($ovin->date_naissance,$ovin->die_date)[4];  
         }
         
-        return view('ovins.details', compact('ovin','avorternaissances','angnaux','age','status','sex','date_vente'));
+        return view('ovins.details', compact('ovin','avorternaissances','angnaux','age','status','sex','date_vente','numere','num_in_lot'));
     }
 
     /**
@@ -193,7 +224,7 @@ class OvinController extends Controller
     public function show_agneau()
     {
 
-        $ovins = Ovin::where('taged', false)->where('alive', true)->orderby('date_naissance', 'desc')->orderby('num', 'asc')->paginate(10);
+        $ovins = Ovin::where('taged', false)->where('alive', true)->where('vendu','0')->orderby('date_naissance', 'desc')->orderby('num', 'asc')->paginate(10);
         return view('ovins.index', compact('ovins'));
     }
 
@@ -267,6 +298,9 @@ class OvinController extends Controller
                 $sex = false;
             }
             $ovin->sexe = $sex;
+            $ovin->date_inventaire = $request->date_inventaire;
+            $ovin->inventaire = $request->inventaire;
+
             $ovin->save();
             $modification= new Modification();
             $modification->cause=$request->cause;
@@ -368,9 +402,13 @@ class OvinController extends Controller
     public function addnaissance(Request $request, $id)
     {
         $ovin1 = Ovin::where('id', $request->id)->first();
-
+        $ovin1->date_inventaire =date('Y-m-d');
+        $ovin1->inventaire=1;
+        $ovin1->save();
+       //   dd($ovin1);
         $ovin = Ovin::where('id_mere', $request->id)->get();
         $lastid=$ovin1->num *10000+$ovin->count();
+        $nlot=0;
         // return $lastid;
 
         // if (is_null($ovin)) {
@@ -435,13 +473,15 @@ class OvinController extends Controller
             $ovin->id_source = 2; //naissance
             $ovin->id_achat = 1;
             $ovin->save();
+
           
                     $ovin_lots =new Ovin_lot();
                     $id_ovin=Ovin::where('id_mere', $request->id)->latest('id')->first();
                     $ovin_lots->id_ovin=$id_ovin->id;
-                    $ovin_lots->num_in_lot=$request->num_in_lot;
+                    $ovin_lots->num_in_lot=$request->num_in_lot+$nlot;
                     $ovin_lots->id_lot=$lot->id;
                     $ovin_lots->save();
+                    $nlot++;// pour faire des numéro def en serie 1 2 3 4 meme pour les gémeaux
 
 
                 }
@@ -457,6 +497,8 @@ class OvinController extends Controller
         }
         $nbr=Ovin_lot::where('id_lot','=',$lot->id)->count();
         $lot->nbr_ovins = $nbr;
+        $init=Ovin_Lot::where('id_lot','=',$lot->id)->withTrashed()->count();
+        $lot->nbr_init=$init;
         $lot->save();
 
         return redirect('naissance/');
@@ -470,6 +512,10 @@ class OvinController extends Controller
         $avorter->id_user = $request->declareur;
         $avorter->naissance = false;
         $avorter->save();
+        $ovins = Ovin::where('id', $id)->first();
+        $ovins->date_inventaire=date('Y-m-d');
+        $ovins->inventaire=1;
+        $ovins->save();
         return redirect()->route('avorter.index');
     }
 

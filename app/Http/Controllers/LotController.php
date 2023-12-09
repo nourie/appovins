@@ -56,10 +56,22 @@ class LotController extends Controller
      
                  
                } else {
+
+
+                $count=Lot::where('color_id',$request->couleur)->count()+1;
+                $couleur=Colorlot::where('id',$request->couleur)->first()->name;
+
+             
+
                 $lot = new Lot();
                 $lot->color_id = $request->couleur;
                 $lot->active = 1;
                 $lot->debut_lot = $request->debut_lot;
+                $lot->nom=$couleur.$count;
+                $lot->nbr_init=0;
+
+
+
             
                 $lot->save();
                 $error =1;
@@ -73,39 +85,39 @@ class LotController extends Controller
 
 
     public function old ()
-    {
-      $debut=date('2022-01-01');
-      $fin=date('2022-10-31');
-      $ovins=  DB::table('ovins')
-      ->whereBetween ('ovins.date_naissance',[$debut,$fin] )
-      ->get(['ovins.id','ovins.num','die_date']);
-      echo "le nombre :";
-      echo $ovins->count();
+      {
+    //   $debut=date('2022-01-01');
+    //   $fin=date('2022-10-31');
+    //   $ovins=  DB::table('ovins')
+    //   ->whereBetween ('ovins.date_naissance',[$debut,$fin] )
+    //   ->get(['ovins.id','ovins.num','die_date']);
+    //   echo "le nombre :";
+    //   echo $ovins->count();
      
     
     
-     echo "\r\n";
-     $nbr=0;
-     foreach ($ovins as $ovin)
-     {
-     $nbr++;
-     $ovin_lots =new Ovin_lot();
-     $ovin_lots->id_ovin=$ovin->id;
-     $ovin_lots->num_in_lot=0;
-     $ovin_lots->id_lot=1;
-     $ovin_lots->deleted_at=$ovin->die_date;
-     $ovin_lots->save();
-     echo $ovin->num;
-     echo "\r\n";
+    //  echo "\r\n";
+    //  $nbr=0;
+    //  foreach ($ovins as $ovin)
+    //  {
+    //  $nbr++;
+    //  $ovin_lots =new Ovin_lot();
+    //  $ovin_lots->id_ovin=$ovin->id;
+    //  $ovin_lots->num_in_lot=0;
+    //  $ovin_lots->id_lot=1;
+    //  $ovin_lots->deleted_at=$ovin->die_date;
+    //  $ovin_lots->save();
+    //  echo $ovin->num;
+    //  echo "\r\n";
 
-     }
-     echo $nbr;
-     $lot = Lot::where('id','1')->first();
-     $nbr=Ovin_lot::where('id_lot','=',$lot->id)->count();
-     $lot->nbr_ovins = $nbr;
-     $lot->save();
+    //  }
+    //  echo $nbr;
+    //  $lot = Lot::where('id','1')->first();
+    //  $nbr=Ovin_lot::where('id_lot','=',$lot->id)->count();
+    //  $lot->nbr_ovins = $nbr;
+    //  $lot->save();
 
-     return $ovins;
+    //  return $ovins;
     }          
     public function index($err)
     { 
@@ -166,6 +178,7 @@ class LotController extends Controller
     ->join('ovins',  'ovins.id' ,'=','ovin__lots.id_ovin')
      ->join('ovins as mere','mere.id','=','ovins.id_mere')
       ->where('ovins.alive',true)
+      ->where('ovins.vendu',0)
     ->where( 'ovin__lots.id_lot',$id)
      ->orderBy('ovin__lots.num_in_lot')
      ->paginate(20,['mere.num as mere','mere.id as id_mere', 'ovins.num','ovins.id as id','ovins.sexe','ovins.date_naissance','ovins.die_date','ovins.date_achat','num_in_lot','ovins.alive','ovins.vendu']);

@@ -4,11 +4,8 @@
 @endsection
 
 @section('contenu')
-    @desktop
-        <h1> قائمة الحيوانات</h1>
-    @elsedesktop
-        <h1>mobile قائمة الحيوانات</h1>
-    @enddesktop
+        <h1> قائمة الحيوانات في المجموعات</h1>
+
     <table class="table">
         <thead>
             <tr>

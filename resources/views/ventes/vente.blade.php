@@ -1,6 +1,6 @@
 @extends('layouts.menu')
 @section('title')
-    <title> بيع الحيوانات </title>
+     بيع الحيوانات 
 @endsection
 @section('contenu')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -118,6 +118,7 @@
 
                                 <td>{{ $temp->date_achat }}</td>
                                 <td>{{ $temp->date_naissance }}</td>
+                                <td> <a class="btn btn-danger" href="{{ route('vente.delete', $temp->id) }}" role="button">حذف</a></td>
                         </tr>
                         @endforeach
 

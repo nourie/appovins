@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vente;
 use App\Models\Ovin;
 use App\Models\Lot;
-use App\Models\Ovin_lot;
+use App\Models\Ovin_Lot;
 use App\Models\Temp_vente;
 use App\Models\ListeVente;
 use Illuminate\Http\Request;
@@ -48,6 +48,42 @@ class VenteController extends Controller
     public function create()
     {
         //
+    }
+    public function ventemasse()
+    {
+        $ovins = Ovin::query()
+        ->where('sexe','0')
+        ->where('alive', '1')
+        ->where('vendu', '0')
+        ->where('taged','0')
+        ->where('date_naissance','<','2023-01-04')
+        ->get();
+
+        // $i=0;
+        // for  ($i=0; $i< 12;$i++ )
+        // {
+           
+        //         $temps = new Temp_vente();
+        //         $temps->id_ovin = $ovins[$i]->id;
+        //         $temps->num = $ovins[$i]->num;
+        //         $temps->taged = $ovins[$i]->taged;
+        //         $temps->date_achat = $ovins[$i]->date_achat;
+        //         $temps->date_naissance = $ovins[$i]->date_naissance;
+        //         $temps->sexe = $ovins[$i]->sexe;
+        //         $temps->date_vente = '2023-06-28';
+        //         $temps->prix_vente = 0;
+        //         $temps->nombre_vente = 1;
+        //         $temps->nb_male = 1;
+        //         $temps->nb_female = 1;
+        //         $temps->nb_angeau = 1;
+        //         $temps->id_acheteur = 20;
+        //         $temps->name_acheteur = 1;
+        //         $temps->saved = 0;
+        //         $temps->save();
+        //         $error = " إضافة رقم آخر";
+
+        // }
+        return $ovins->count();
     }
 
     /**
@@ -105,9 +141,10 @@ class VenteController extends Controller
      * @param  \App\Models\Vente  $vente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Vente $vente)
+    public function destroy(Vente $vent)
     {
-        //
+        return $vent;
+         //Ovin::destroy($id);
     }
     public function search(Request $request)
 
@@ -116,9 +153,12 @@ class VenteController extends Controller
         $request->validate([
             'num' => 'required|unique:temp_ventes'
         ]);
-        $ovins = Ovin::query()
-            ->where('num', $request->num)->where('alive', '1')->where('vendu', '0')
-            ->first();
+        // $ovins = Ovin::query()
+        //     ->where('num', $request->num)->where('alive', '1')->where('vendu', '0')
+        //     ->first();
+          $ovins = Ovin::query()
+            ->where('num', $request->num)->where('die_status','>','0')->where('vendu', '0')
+            ->first();  // ajouter les ovins égorgé en plus des en vie a la vente
 
         if (isset($ovins)) {
             $temps = new Temp_vente();
@@ -213,7 +253,16 @@ class VenteController extends Controller
                 $listeVentes->prix_vente = $temp->prix_vente;
                 $listeVentes->save();
                 $ovins = Ovin::findorfail($temp->id_ovin);
-                $ovins->vendu = 1;
+                if ($ovins->die_status == 1 )
+                {
+                   
+                    $ovins->vendu = 3;
+                }
+                else{ 
+                    $ovins->vendu = 1; 
+                }
+               
+                
                 $ovins->save();
                // ****** to reprograme as event in the future
                $Ovin_lot = Ovin_Lot::where('id_ovin', '=', $temp->id_ovin)->get();

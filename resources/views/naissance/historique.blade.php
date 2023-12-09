@@ -61,4 +61,6 @@
         @endforeach
     </tbody>
 </table>
+ إضهار من  {{$angnaux->firstItem()}} إلى {{$angnaux->LastItem()}} على {{$angnaux->total()}}
+    {{ $angnaux->links()}}
 </body>

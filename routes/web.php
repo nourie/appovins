@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlaiteController;
 use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\OvinController;
 use App\Http\Controllers\AchatController;
@@ -8,8 +9,9 @@ use App\Http\Controllers\NaissanceController;
 use App\Http\Controllers\VenteController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\LotController;
-
-
+use App\Http\Controllers\CliniqueController;
+use App\Http\Controllers\Temp_venteController;
+use App\Models\Clinique;
 use App\Models\Naissance;
 
 /*
@@ -75,8 +77,24 @@ Route::get('/avorter/', [AvorterController::class, 'index'])->name('avorter.inde
 
 Route::get('vente/search', [VenteController::class, 'search'])->name('vente.search');
 Route::get('vente/valider', [VenteController::class, 'valider'])->name('vente.valider');
+Route::get('vente/ventemasse', [VenteController::class, 'ventemasse'])->name('vente.ventemasse');
+Route::get('vente/delete/{id}', [Temp_venteController::class, 'delete'])->name('vente.delete');
 
-Route::resource('vente', VenteController::class,['names'=>['index'=>'vente.index','show'=>'vente.show']]);
+
+
+
+Route::resource('vente', VenteController::class,['names'=>['index'=>'vente.index','show'=>'vente.show','destroy'=>'vente.destroy']]);
+
+Route::get('alaiter/alaite', [AlaiteController::class, 'show'])->name('alaite.show');
+Route::get('alaiter/find', [AlaiteController::class, 'search'])->name('alaite.search');
+Route::get('alaiter/findal', [AlaiteController::class, 'searchal'])->name('alaite.searchal');
+Route::get('alaiter/alaiter', [AlaiteController::class, 'alaiter'])->name('alaite.alaiter');
+Route::post('/ajax-request', [AlaiteController::class,'ajaxRequest'])->name('ajax-request');
+
+
+
+
+
 
 
 Route::get('/lot/inlot/{id}', [LotController::class, 'inlot'])->name('lot.inlot');
@@ -103,6 +121,10 @@ Route::get('/search', [OvinController::class, 'search'])->name('ovins.search');
 Route::get('/ovins/addnaissance/{id}', [OvinController::class, 'addnaissance'])->name('ovins.addnaissance');
 Route::get('/ovins/addavorter/{id}', [OvinController::class, 'addavorter'])->name('ovins.addavorter');
 Route::get('/ovins/details/{id}', [OvinController::class, 'details'])->name('ovins.details');
+
+Route::get('/clinique/', [CliniqueController::class, 'index'])->name('clinque.index');
+
+
 
 
 

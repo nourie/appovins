@@ -5,7 +5,7 @@
 
 @section('contenu')
 
-<h1> قائمة الحيوانات</h1>
+<h1>   قائمة الحيوانات في المريضة</h1>
 
 
 <table class="table">
@@ -16,6 +16,12 @@
             <th scope="col">تاريخ ش/و</th>
             <th scope="col">السن</th>
             <th scope="col">الجنس</th>
+            <th scope="col">تاريخ  الدخول</th>
+            <th scope="col">  مدة العلاج</th>
+            <th scope="col">تاريخ  الفحص</th>
+            <th scope="col">   التفاصيل</th>
+
+
 
         </tr>
     </thead>

@@ -20,6 +20,8 @@
                 <th scope="col">البداية</th>
                 <th scope="col">النهاية</th>
                 <th scope="col">عدد الخرفان</th>
+                <th scope="col">العدد الأولي </th>
+
 
             </tr>
         </thead>
@@ -28,7 +30,7 @@
                 <tr>
                     <th scope="row">
                         {{ $lot->id }}</th>
-                    <td>{{ $lot->name }}</td>
+                    <td>{{ $lot->nom }}</td>
                     <td>{{ $lot->debut_lot }}</td>
 
                     @if (auth()->user()->userrole == 1)
@@ -46,6 +48,8 @@
                         @endif
                     @endif
                      <td> <a href="{{route('lot.inlot', $lot->id)}}"> {{ $lot->nbr_ovins }}  </a></td>
+                     <td> <a href="{{route('lot.inlot', $lot->id)}}"> {{ $lot->nbr_init }}  </a></td>
+
 
 
 

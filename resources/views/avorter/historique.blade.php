@@ -28,4 +28,7 @@
         @endforeach
     </tbody>
 </table>
+ {{-- إضهار من  {{$avorternaissances->firstItem()}} إلى {{$avorternaissances->LastItem()}} على {{$avorternaissances->total()}}
+    {{ $avorternaissances->links()}} --}}
+
 </body>
