@@ -38,6 +38,20 @@
         <input type="radio" id="Female" name="sexe" value="Female" checked>
         <label for="Female">Female</label>
     </div>
+    <div class="col">
+                    <label for="source"> المصدر :</label>
+                    <select class="form-select form-select-lg mb-3" name="source" id="source">
+
+                        <optgroup label="---">
+                            @php
+                                $source = \App\Models\Source::get();
+                            @endphp
+                            @foreach ($source as $sources)
+                                <option value="{{ $sources->id }}">{{ $sources->nom_source }}</option>
+                            @endforeach
+                        </optgroup>
+                    </select>
+                </div>
 
     <div class="c100" id="submit">
         <input type="submit" value="Ajouter">

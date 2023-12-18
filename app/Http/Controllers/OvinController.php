@@ -97,10 +97,13 @@ class OvinController extends Controller
      {
     
         $num_in_lot="لا يوجد";
+        $nomlot="لا يوجد";
      }
      else 
      {
         $num_in_lot=$anlot[0]->num_in_lot;
+        $nomlot=$anlot[0]->nom;
+
      }
        
       // dd($angnaux);        
@@ -156,7 +159,7 @@ class OvinController extends Controller
             $age=$this->age($ovin->date_naissance,$ovin->die_date)[4];  
         }
         
-        return view('ovins.details', compact('ovin','avorternaissances','angnaux','age','status','sex','date_vente','numere','num_in_lot'));
+        return view('ovins.details', compact('ovin','avorternaissances','angnaux','age','status','sex','date_vente','numere','num_in_lot','nomlot'));
     }
 
     /**
@@ -175,12 +178,12 @@ class OvinController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreOvinRequest $request)
+    public function store(Request $request)
     {
-        // $request->validate([
-        //   'num'=> 'required|unique:ovins'
-        // ]
-        // );
+        $request->validate([
+          'num'=> 'required|unique:ovins'
+        ]
+        );
 
         $ovin = new Ovin();
         $ovin->num = $request->num;
@@ -195,7 +198,9 @@ class OvinController extends Controller
         $ovin->alive = true;
         $ovin->vendu = false;
         $ovin->id_mere = 0;
-        $ovin->id_source = 1; // 1 acheter
+        $ovin->date_inventaire = $request->date_achat; 
+        $ovin->inventaire = 1;
+        $ovin->id_source = $request->source; // 1 acheter  2 naissance 3 novelle numérotaion
         $ovin->id_achat = 1;
         $ovin->save();
         // Ovin::create([
@@ -402,7 +407,7 @@ class OvinController extends Controller
     public function addnaissance(Request $request, $id)
     {
         $ovin1 = Ovin::where('id', $request->id)->first();
-        $ovin1->date_inventaire =date('Y-m-d');
+        $ovin1->date_inventaire =$request->date_naissance;
         $ovin1->inventaire=1;
         $ovin1->save();
        //   dd($ovin1);
@@ -513,7 +518,7 @@ class OvinController extends Controller
         $avorter->naissance = false;
         $avorter->save();
         $ovins = Ovin::where('id', $id)->first();
-        $ovins->date_inventaire=date('Y-m-d');
+        $ovins->date_inventaire = $request->date_achat; 
         $ovins->inventaire=1;
         $ovins->save();
         return redirect()->route('avorter.index');

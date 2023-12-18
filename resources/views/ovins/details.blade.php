@@ -13,8 +13,10 @@
             <input type="text" class="form-control" name="num" value="{{ $ovin->num }}" readonly='readonly'>
             <label for="numere">رقم الأم : </label>
             <input type="text" class="form-control" name="numere" value="{{ $numere }}" readonly='readonly'>
-            <label for="numinmot">الرقم في المجموعة : </label>
-            <input type="text" class="form-control" name="numinmot" value="{{ $num_in_lot }}" readonly='readonly'>
+            <label for="numinlot">الرقم في المجموعة : </label>
+            <input type="text" class="form-control" name="numinlot" value="{{ $num_in_lot }}" readonly='readonly'>
+            <label for="nomlot">   المجموعة: </label>
+            <input type="text" class="form-control" name="nomlot" value="{{ $nomlot }}" readonly='readonly'>
         </div>
         <div class="col">
             <label for="date_achat">تاريخ الشراء : </label>

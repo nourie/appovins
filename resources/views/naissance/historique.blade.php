@@ -50,7 +50,7 @@
                     @endif
                 </td>
                 <td>
-                    <a href="{{ route('lot.close', $angnau->id_lot) }}"> {{ $angnau->name }}</a>
+                    <a href="{{ route('lot.close', $angnau->id_lot) }}"> {{ $angnau->nom }}</a>
                 </td>
                 <td>
                     <a href="{{ route('lot.inlot', $angnau->id_lot) }}"> {{ $angnau->num_in_lot }} </a>

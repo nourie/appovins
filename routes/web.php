@@ -121,6 +121,7 @@ Route::get('/search', [OvinController::class, 'search'])->name('ovins.search');
 Route::get('/ovins/addnaissance/{id}', [OvinController::class, 'addnaissance'])->name('ovins.addnaissance');
 Route::get('/ovins/addavorter/{id}', [OvinController::class, 'addavorter'])->name('ovins.addavorter');
 Route::get('/ovins/details/{id}', [OvinController::class, 'details'])->name('ovins.details');
+Route::get('/ovins/create/', [OvinController::class, 'create'])->name('ovins.create');
 
 Route::get('/clinique/', [CliniqueController::class, 'index'])->name('clinque.index');
 
